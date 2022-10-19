@@ -1,9 +1,13 @@
 package com.cydeo.controller;
 
 import com.cydeo.bootstrap.DataGenerator;
+import com.cydeo.model.mentor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 
 @Controller
@@ -11,17 +15,25 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MentorController {
 
 
-        @RequestMapping("/register") // localhost:8080/mentor/register
+        @GetMapping("/register") // localhost:8080/mentor/register
         public String register( Model model){
 
-            model.addAttribute("students", DataGenerator.createStudent());
-            return "student/register";
+            List<String> batchList = Arrays.asList("JD1", "JD2", "JD3");
+            model.addAttribute("batchList", batchList);
+
+            model.addAttribute("mentor", new mentor());
+
+            return "mentor/mentor-register";
+        }
+        @PostMapping("/confirm")
+        public String submitForm(@ModelAttribute("mentor") mentor Mentor){
+
+             //   return "mentor/mentor-confirmation";
+
+
+            return "redirect:/mentor/register";
         }
 
-        @RequestMapping("/drop") // localhost:8080/mentor/drop
-        public String drop(){
 
-            return "student/register";
-        }
     }
 
